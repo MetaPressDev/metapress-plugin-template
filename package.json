@@ -1,0 +1,33 @@
+{
+    "name": "metapress-plugin-template",
+    "version": "1.0.0",
+    "description": "My MetaPress plugin.",
+    "main": "js/loader.js",
+    "private": true,
+    "scripts": {
+        "build": "node .scripts/build.js build development",
+        "build:production": "node .scripts/build.js build production"
+    },
+    "keywords": [
+        "metapress",
+        "plugin"
+    ],
+    "author": "",
+    "license": "ISC",
+    "metapress": {
+        "id": "com.myplugin",
+        "name": "My MetaPress Plugin"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.22.9",
+        "@babel/plugin-proposal-decorators": "^7.22.7",
+        "@babel/preset-env": "^7.22.9",
+        "@babel/preset-react": "^7.22.5",
+        "babel-loader": "^9.1.3",
+        "bestzip": "^2.2.1",
+        "file-loader": "^6.2.0",
+        "replace-in-file": "^7.0.1",
+        "rimraf": "^5.0.1",
+        "webpack-cli": "^5.1.4"
+    }
+}
