@@ -63,6 +63,18 @@ exports.build = (mode) => {
     exports.buildWordpressPlugin()
 }
 
+// Start the dev server
+exports.dev = () => {
+    exports.clean()
+    exports.buildJS('development')
+    exports.buildWordpressPlugin()
+
+    // Start the dev server
+    info('Starting dev server...')
+    run('npx webpack serve --mode development')
+
+}
+
 // Execute the appropriate task
 let cmd = process.argv[2]
 if (!exports[cmd]) throw new Error("Unknown command: " + cmd)

@@ -37,6 +37,14 @@ module.exports = function(env, argv) {
     // Pass sourcemap inline when in development mode
     config.devtool = argv.mode == 'development' ? 'source-map' : false
 
+    // Configure dev server port
+    config.devServer = {
+        port: 11234,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
+    }
+
     // Done
     return config
 
