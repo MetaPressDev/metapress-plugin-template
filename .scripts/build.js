@@ -25,7 +25,7 @@ exports.buildWordpressPlugin = () => {
 
     // Get WordPress plugin ID, derived from the package name
     const packageJson = require('../package.json')
-    const wordpressID = packageJson.name.replaceAll(/[^0-9A-Za-z_-]/g, '_')
+    const wordpressID = packageJson.name.replaceAll(/[^0-9A-Za-z_]/g, '_')
 
     // Copy the WordPress plugin files into the build directory
     fs.mkdirSync('./dist', { recursive: true })

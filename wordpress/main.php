@@ -25,3 +25,18 @@ add_action('metapress_register_plugin', function($register) {
     ));
 
 });
+
+// Inject the plugin's code
+add_action('metapress_scripts', 'metapress_REPLACE_WP_NAME_scripts');
+function metapress_REPLACE_WP_NAME_scripts($config) {
+    $codeLocation = plugin_dir_url(__FILE__) . 'js/loader.js';
+    echo "<script src='$codeLocation'></script>";
+}
+
+
+// Inject any extra config options
+add_filter('metapress_config', 'metapress_REPLACE_WP_NAME_config');
+function metapress_REPLACE_WP_NAME_config($config) {
+    // $config['test1'] = 'test1';
+    return $config;
+}
