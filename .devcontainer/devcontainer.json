@@ -1,0 +1,38 @@
+{
+
+	// Settings
+	"name": "Ubuntu WordPress",
+	"build": { "dockerfile": "Dockerfile" },
+	"remoteUser": "vscode",
+
+	// Use a fixed workspace folder name so our LAMP scripts can access it
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+	"workspaceFolder": "/workspace",
+
+	// Mount the node_modules separately as it's own volume to speed it up on WSL2
+	"mounts": [
+		"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+	],
+
+	// Start script which launches all the services
+	"postStartCommand": "/workspace/.devcontainer/start.sh",
+
+	// Expose web port
+	"forwardPorts": [8011, 11234],
+	"portsAttributes": {
+
+		// WordPress server
+		"8011": {
+			"label": "WordPress Server",
+			"protocol": "http"
+		},
+
+		// Webpack Dev Server
+		"11234": {
+			"label": "Webpack Dev Server",
+			"protocol": "http"
+		}
+
+	}
+
+}

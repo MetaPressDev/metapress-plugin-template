@@ -20,7 +20,7 @@ exports.buildJS = (mode) => {
 }
 
 // Copy the WordPress plugin files into the build directory, and remove unnecessary files
-exports.buildWordpressPlugin = () => {
+exports.buildWordpressPlugin = (installToDevServer) => {
     info('Building WordPress plugin...')
 
     // Get WordPress plugin ID, derived from the package name
@@ -48,8 +48,25 @@ exports.buildWordpressPlugin = () => {
     // Copy the JS library in
     fs.cpSync('./dist/plugin', `./dist/${wordpressID}/js`, { recursive: true })
 
-    // Zip it
-    run(`cd ./dist && npx bestzip ${wordpressID}.zip ${wordpressID}`)
+    // Install to the dev server if needed
+    if (installToDevServer) {
+
+        // Remove old plugin
+        info('Installing to the dev server...')
+        fs.rmSync(`/var/www/html/wp-content/plugins/${wordpressID}`, { recursive: true, force: true })
+
+        // Copy plugin across
+        fs.cpSync(`./dist/${wordpressID}`, `/var/www/html/wp-content/plugins/${wordpressID}`, { recursive: true })
+
+        // Activate the plugin
+        run(`wp plugin activate ${wordpressID}`)
+
+    } else {
+
+        // Build (zip) the plugin
+        run(`cd ./dist && npx bestzip ${wordpressID}.zip ${wordpressID}`)
+
+    }
 
     // Remove the temporary WordPress folder
     fs.rmSync(`./dist/${wordpressID}`, { recursive: true, force: true })
@@ -65,9 +82,15 @@ exports.build = (mode) => {
 
 // Start the dev server
 exports.dev = () => {
+
+    // Ensure we are inside the dev container
+    if (!fs.existsSync("/var/www/html/wp-content"))
+        throw new Error("This command requires to be running inside the VSCode Dev Container.")
+
+    // Start the build process
     exports.clean()
     exports.buildJS('development')
-    exports.buildWordpressPlugin()
+    exports.buildWordpressPlugin(true)
 
     // Start the dev server
     info('Starting dev server...')

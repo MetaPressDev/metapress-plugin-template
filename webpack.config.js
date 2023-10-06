@@ -40,9 +40,15 @@ module.exports = function(env, argv) {
     // Configure dev server port
     config.devServer = {
         port: 11234,
+        host: "0.0.0.0",
         headers: {
             'Access-Control-Allow-Origin': '*'
         }
+    }
+
+    // Make the dev server use polling for watching ... see https://dev.to/ku6ryo/run-webpackdevserver-in-docker-1mg5
+    config.watchOptions = {
+        poll: 1000,
     }
 
     // Done

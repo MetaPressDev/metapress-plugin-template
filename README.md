@@ -10,7 +10,7 @@ This is a plugin for [MetaPress](https://get.metapress.dev).
 - The plugin code is at `js/start.js`.
 - The build output will be saved to the `dist` folder. The ZIP file contains the WordPress plugin.
 
-> You can run `npm run dev` to start a local server. Once it's running, upload the plugin ZIP file in the `dist` folder to WordPress once, and then on subsequent changes you can just refresh the page to see the changes.
+> If using the VSCode Dev Container, you can run `npm run dev` to push your plugin to the included WordPress server and watch for changes.
 
 ## Installation
 
