@@ -15,7 +15,7 @@
 	],
 
 	// Start script which launches all the services
-	"postStartCommand": "/workspace/.devcontainer/start.sh",
+	"postStartCommand": "/start.sh",
 
 	// Expose web port
 	"forwardPorts": [8011, 11234],
