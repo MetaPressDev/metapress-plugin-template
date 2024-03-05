@@ -8,6 +8,7 @@ USER vscode
 #  Install PHP 7.4
 RUN export DEBIAN_FRONTEND=noninteractive && \
     sudo apt update && \
+    sudo apt upgrade -y && \
     sudo apt install -y software-properties-common ca-certificates lsb-release apt-transport-https && \
     LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php && \
     sudo apt update && \
