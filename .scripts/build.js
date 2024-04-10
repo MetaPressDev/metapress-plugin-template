@@ -10,12 +10,24 @@ exports.clean = () => {
 }
 
 // Build the JS code
-exports.buildJS = (mode) => {
+exports.buildJS = (mode = 'production') => {
     info('Building JS library (' + mode + ')...')
 
     // Build the JS code with Webpack
     fs.mkdirSync('./dist', { recursive: true })
     run(`npx webpack build --mode ${mode}`)
+
+    // Get WordPress plugin ID, derived from the package name
+    const packageJson = require('../package.json')
+    const wordpressID = packageJson.name.replaceAll(/[^0-9A-Za-z_]/g, '_')
+
+    // If production, package the core library
+    if (mode === 'production') {
+        
+        // Build (zip) the plugin
+        run(`cd ./dist/plugin && npx bestzip ../${wordpressID}-core-v${packageJson.version}.zip ./`)
+
+    }
 
 }
 
@@ -64,7 +76,7 @@ exports.buildWordpressPlugin = (installToDevServer) => {
     } else {
 
         // Build (zip) the plugin
-        run(`cd ./dist && npx bestzip ${wordpressID}.zip ${wordpressID}`)
+        run(`cd ./dist && npx bestzip ${wordpressID}-wordpress-v${packageJson.version}.zip ${wordpressID}`)
 
     }
 
