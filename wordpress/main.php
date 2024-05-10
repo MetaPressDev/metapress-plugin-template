@@ -30,7 +30,7 @@ add_action('metapress_register_plugin', function($register) {
 add_action('metapress_scripts', 'metapress_REPLACE_WP_NAME_scripts');
 function metapress_REPLACE_WP_NAME_scripts($config) {
     $codeLocation = plugin_dir_url(__FILE__) . 'js/loader.js';
-    echo "<script src='$codeLocation'></script>";
+    echo "<script src='$codeLocation?v=REPLACE_PACKAGE_VERSION'></script>";
 }
 
 
